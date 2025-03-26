@@ -11,53 +11,104 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #FFDAB9;
-            text-align: center;
+            min-height: 100vh;
+            background-color: #222; 
+            color: #d4aa00; 
+            font-family: 'Georgia', serif; 
+            margin: 0;
             padding: 20px;
-            flex-direction: column;
+            box-sizing: border-box;
         }
+
         .countdown-container {
-            background: #FFB86C;
+            background: linear-gradient(135deg, #333, #1a1a1a); 
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             width: 100%;
-            max-width: 400px;
+            max-width: 500px; 
+            text-align: center;
+            box-sizing: border-box;
         }
+
         h1 {
-            font-size: 1.5rem;
-            color: #8B4513;
+            font-size: 2rem;
+            color: #d4aa00;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
         }
+
         #countdown {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: #A52A2A;
+            color: #e6c200; 
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
         }
+
         .image-container {
             margin: 20px 0;
-        }
-        .image-container img {
             width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .image-container img {
+            max-width: 80%; 
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        #fechaObjetivoDisplay {
+            display: none;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #ccc;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            line-height: 1.6;
+        }
+
+        #mostrarFechaBtn {
+            background-color: #d4aa00;
+            color: #222;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top:20px;
+        }
+
+        #mostrarFechaBtn:hover {
+            background-color: #e6c200;
         }
     </style>
 </head>
 <body>
     <div class="countdown-container">
-        <h1 class="mb-3">Tiempo restante Hasta la próxima sesion de Valladolid:</h1>
+        <h1 class="mb-3">Cuanto falta para el próximo Rol?</h1>
         <div class="image-container">
             <img src="public/perettorco.jpg" alt="perettorco">
         </div>
         <p id="countdown" class="fs-4"></p>
+        <button id="mostrarFechaBtn" class="btn btn-primary mt-3">Soy de Boca</button>
+        <p id="fechaObjetivoDisplay"></p>
     </div>
 
     <script>
+        const fechaObjetivo = new Date("2025-04-06T16:00:00");
+        const fechaObjetivoDisplay = document.getElementById("fechaObjetivoDisplay");
+        const mostrarFechaBtn = document.getElementById("mostrarFechaBtn");
+        let fechaMostrada = false;
+
         function actualizarCuentaRegresiva() {
-            const fechaObjetivo = new Date("2025-04-06T00:00:00").getTime();
             const ahora = new Date().getTime();
-            const diferencia = fechaObjetivo - ahora;
+            const diferencia = fechaObjetivo.getTime() - ahora;
 
             const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
             const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -69,6 +120,18 @@
 
         actualizarCuentaRegresiva();
         setInterval(actualizarCuentaRegresiva, 1000);
+
+        mostrarFechaBtn.addEventListener("click", function() {
+            if (fechaMostrada) {
+                fechaObjetivoDisplay.style.display = "none";
+                fechaMostrada = false;
+            } else {
+                const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
+                fechaObjetivoDisplay.innerHTML = "Fecha Rol: " + fechaObjetivo.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' }) + "<br>Horario: " + fechaObjetivo.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: true });
+                fechaObjetivoDisplay.style.display = "block";
+                fechaMostrada = true;
+            }
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
