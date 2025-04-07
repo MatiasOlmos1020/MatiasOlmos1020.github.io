@@ -11,7 +11,10 @@ function actualizarCuentaRegresiva() {
     const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
+    console.log("-----ahora-----")
+    console.log(new Date());
+    console.log("-----objetivo-----")
+    console.log(fechaObjetivo);
     document.getElementById("countdown").innerText = `${dias} días, ${horas} horas, ${minutos} minutos, ${segundos} segundos`;
 }
 
