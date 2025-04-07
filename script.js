@@ -1,4 +1,4 @@
-const fechaObjetivo = new Date("2025-04-06T16:00:00");
+const fechaObjetivo = new Date("2025-04-19T16:00:00");
 const fechaObjetivoDisplay = document.getElementById("fechaObjetivoDisplay");
 const mostrarFechaBtn = document.getElementById("mostrarFechaBtn");
 let fechaMostrada = false;
